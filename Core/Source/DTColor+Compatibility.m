@@ -93,27 +93,12 @@ static void DTCoreTextNSColorInitialization(void)
 	return nil;
 }
 
-// From https://gist.github.com/1593255
 - (CGColorRef)CGColor
 {
-	CGColorRef color = (__bridge CGColorRef)objc_getAssociatedObject(self, DTCoreTextCGColorKey);
-	if (color == NULL)
-	{
-		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-		
-		NSColor *selfCopy = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-		
-		CGFloat colorValues[4];
-		[selfCopy getRed:&colorValues[0] green:&colorValues[1] blue:&colorValues[2] alpha:&colorValues[3]];
-		
-		color = CGColorCreate(colorSpace, colorValues);
-		CGColorSpaceRelease(colorSpace);
-		
-		objc_setAssociatedObject(self, DTCoreTextCGColorKey, CFBridgingRelease(color), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	
-	return color;
+	// NOTE: This code was removed because it was copied from a gist that had no source license.
+	return NULL;
 }
+
 #endif // MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_7 || MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_7
 
 @end
